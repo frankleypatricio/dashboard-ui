@@ -1,4 +1,6 @@
+import 'package:dashboard_ui/routes.dart' as routes;
 import 'package:dashboard_ui/screens/home-screen.dart';
+import 'package:dashboard_ui/theme.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,7 +14,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      theme: AppTheme.themeData,
+      onGenerateRoute: routes.controller,
+      initialRoute: routes.splash,
       home: const HomeScreen(),
     );
   }
