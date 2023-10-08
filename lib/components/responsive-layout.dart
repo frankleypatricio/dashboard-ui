@@ -15,18 +15,12 @@ class ResponsiveLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Builder(
-      builder: (context) {
-        AppConfig.updateScreenSize(context);
-
-        if(AppConfig.isDesktop) {
-          return desktop;
-        } else if(tablet != null && AppConfig.isTablet) {
-          return tablet!;
-        } else { // Mobile
-          return mobile;
-        }
-      },
-    );
+    if(AppConfig.isDesktop) {
+      return desktop;
+    } else if(tablet != null && AppConfig.isTablet) {
+      return tablet!;
+    } else { // Mobile
+      return mobile;
+    }
   }
 }

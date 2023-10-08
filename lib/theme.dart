@@ -7,6 +7,7 @@ class AppTheme {
     secondary: Color(0xFF2A2D3E),
     onSecondary: Colors.white,
     background: Color(0xFF212332),
+    onBackground: Colors.white,
   );
 
   static final themeData = ThemeData.dark().copyWith(
@@ -15,19 +16,23 @@ class AppTheme {
 
     textTheme: const TextTheme(
       titleLarge: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
-      titleMedium: TextStyle(fontSize: 18, fontWeight: FontWeight.w300),
+      titleMedium: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
     ),
 
     inputDecorationTheme: InputDecorationTheme(
       isDense: true,
       contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
-      prefixIconColor: colorScheme.background,
-      errorStyle: const TextStyle(fontSize: 14, color: Colors.red, fontWeight: FontWeight.w500),
+      focusColor: colorScheme.onBackground,
       focusedBorder: outlineInputBorder,
       disabledBorder: outlineInputBorder,
       enabledBorder: outlineInputBorder,
       focusedErrorBorder: outlineInputBorder,
       errorBorder: outlineInputBorder,
+    ),
+
+    appBarTheme: AppBarTheme(
+      backgroundColor: colorScheme.secondary,
+      elevation: 0,
     ),
 
     elevatedButtonTheme: ElevatedButtonThemeData(

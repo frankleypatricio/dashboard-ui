@@ -21,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: CircularProgressIndicator(),
+        child: SizedBox(width: 70, height: 70, child: CircularProgressIndicator()),
       ),
     );
   }
