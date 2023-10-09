@@ -1,10 +1,11 @@
+import 'package:dashboard_ui/components/file-container.dart';
 import 'package:dashboard_ui/components/folder-container.dart';
-import 'package:dashboard_ui/components/responsive-layout.dart';
 import 'package:dashboard_ui/components/rounded-container.dart';
 import 'package:dashboard_ui/config.dart';
 import 'package:dashboard_ui/enums/filetype.dart';
 import 'package:dashboard_ui/models/datafile.dart';
 import 'package:dashboard_ui/theme.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -34,6 +35,10 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppConfig.isMobile ? AppBar(
         title: const Text('Dashboard'),
         actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(FontAwesomeIcons.user),
+          ),
           IconButton(
             onPressed: () {},
             icon: const Icon(Icons.search_rounded),
@@ -195,7 +200,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     color: const Color(0xFF45ADE8),
                                     title: 'Steam',
                                     totalFiles: 850,
-                                    totalSpace: 300.5,
+                                    totalSpace: 30.5,
                                   ),
                                 ],
                               ),
@@ -346,10 +351,126 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildAside([double? height]) {
-    return Container(
-      width: double.maxFinite,
-      height: height,
-      color: AppTheme.colorScheme.secondary,
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if(!AppConfig.isMobile) Container(
+          width: double.maxFinite,
+          color: AppTheme.colorScheme.secondary,
+          padding: const EdgeInsets.all(8),
+          margin: const EdgeInsets.only(bottom: 12),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                backgroundColor: AppTheme.colorScheme.background,
+                child: Icon(FontAwesomeIcons.user, color: AppTheme.colorScheme.onBackground),
+              ),
+              const Text('   Username'),
+              InkWell(
+                onTap: (){},
+                child: const Icon(Icons.arrow_drop_down),
+              ),
+            ],
+          ),
+        ),
+
+        Container(
+          width: double.maxFinite,
+          // height: height,
+          color: AppTheme.colorScheme.secondary,
+          padding: const EdgeInsets.all(12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Detalhes de Armazenamento', style: AppTheme.themeData.textTheme.titleMedium),
+
+              Container(
+                height: 200,
+                margin: const EdgeInsets.symmetric(vertical: 12),
+                child: Stack(
+                  children: [
+                    PieChart(
+                      PieChartData(
+                        sectionsSpace: 0,
+                        centerSpaceRadius: 70,
+                        startDegreeOffset: -90,
+                        sections: [
+                          PieChartSectionData(
+                            value: 25,
+                            radius: 25,
+                            showTitle: false,
+                            color: Colors.blue,
+                          ),
+                          PieChartSectionData(
+                            value: 20,
+                            radius: 22,
+                            showTitle: false,
+                            color: Colors.cyanAccent,
+                          ),
+                          PieChartSectionData(
+                            value: 10,
+                            radius: 19,
+                            showTitle: false,
+                            color: Colors.yellow,
+                          ),
+                          PieChartSectionData(
+                            value: 15,
+                            radius: 16,
+                            showTitle: false,
+                            color: Colors.red,
+                          ),
+                          PieChartSectionData(
+                            value: 25,
+                            radius: 13,
+                            showTitle: false,
+                            color: AppTheme.colorScheme.background,
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    const Positioned.fill(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('29.1', style: TextStyle(fontSize: 32, fontWeight: FontWeight.w700)),
+                          Text('de 128GB'),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              FileContainer(
+                icon: const Icon(Icons.description_rounded, color: Colors.blue),
+                title: 'Documentos',
+                totalFiles: 1632,
+                totalSize: 1.3,
+              ),
+              FileContainer(
+                icon: const Icon(Icons.perm_media_rounded, color: Colors.cyanAccent),
+                title: 'Media',
+                totalFiles: 1500,
+                totalSize: 1.3,
+              ),
+              FileContainer(
+                icon: const Icon(Icons.folder_rounded, color: Colors.yellow),
+                title: 'Pastas',
+                totalFiles: 230,
+                totalSize: 1.3,
+              ),
+              FileContainer(
+                icon: const Icon(Icons.insert_drive_file_rounded, color: Colors.red),
+                title: 'Outros',
+                totalFiles: 1328,
+                totalSize: 1.3,
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

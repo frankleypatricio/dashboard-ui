@@ -5,7 +5,8 @@ class RoundedContainer extends StatelessWidget {
   final Widget child;
   final Color? color;
   final EdgeInsets? paddig, margin;
-  final double? width, height;
+  final double? width, height, radius;
+  final BoxBorder? border;
 
   const RoundedContainer({
     required this.child,
@@ -14,6 +15,8 @@ class RoundedContainer extends StatelessWidget {
     this.margin,
     this.width,
     this.height,
+    this.radius,
+    this.border,
     super.key,
   });
 
@@ -25,7 +28,8 @@ class RoundedContainer extends StatelessWidget {
       width: width, height: height,
       decoration: BoxDecoration(
         color: color ?? AppTheme.colorScheme.secondary,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(radius ?? 8),
+        border: border,
       ),
       child: child,
     );
