@@ -20,7 +20,7 @@ class FileContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return RoundedContainer(
       margin: const EdgeInsets.only(bottom: 8),
-      paddig: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       border: Border.all(color: AppTheme.colorScheme.onSecondary.withOpacity(.1), width: 1),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

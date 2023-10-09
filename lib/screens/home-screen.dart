@@ -90,181 +90,214 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
 
-            // -----------------------
-            // BODY
-            // -----------------------
-            Expanded(                             // else == isTablet
-              flex: _menuRecolhido ? (AppConfig.isDesktop ? 10 : 9) : 4,
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                  child: Column(
-                    children: [
-                      if(!AppConfig.isMobile) LayoutBuilder(
-                        builder: (_, constraints) {
-                          return Row(
+            Expanded(
+              flex: _menuRecolhido ? (AppConfig.isDesktop ? 20 : 18) : 5,
+              child: Column(
+                children: [
+                  // -----------------------
+                  // APPBAR
+                  // -----------------------
+                  if(!AppConfig.isMobile) LayoutBuilder(
+                      builder: (_, constraints) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text('Dashboard', style: AppTheme.themeData.textTheme.titleLarge),
-                              SizedBox(
-                                width: constraints.maxWidth*.4,
-                                child: TextFormField(
-                                  decoration: InputDecoration(
-                                    hintText: 'Pesquisar',
-                                    suffixIcon: IconButton(
-                                      onPressed: (){},
-                                      icon: const Icon(Icons.search_rounded),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          );
-                        }
-                      ),
-                      const SizedBox(height: 12),
-
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Meus arquivos', style: AppTheme.themeData.textTheme.titleMedium),
-                          ElevatedButton.icon(
-                            onPressed: (){},
-                            icon: const Icon(Icons.add_rounded),
-                            label: const Text('Adicionar'),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 12),
-
-                      Builder(
-                        builder: (_) {
-                          final size = AppConfig.isMobile ? 120.0 : 150.0;
-                          final scrollController = ScrollController();
-                          return Scrollbar(
-                            controller: scrollController,
-                            child: SingleChildScrollView(
-                              controller: scrollController,
-                              scrollDirection: Axis.horizontal,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              Row(
                                 children: [
-                                  FolderContainer(
-                                    size: size,
-                                    icon: Icons.description_rounded,
-                                    color: Colors.green,
-                                    title: 'Documentos',
-                                    totalFiles: 500,
-                                    totalSpace: 2,
-                                  ),
-
-                                  FolderContainer(
-                                    size: size,
-                                    icon: FontAwesomeIcons.googleDrive,
-                                    color: Colors.orange,
-                                    title: 'Google Drive',
-                                    totalFiles: 1520,
-                                    totalSpace: 10.6,
-                                  ),
-
-                                  FolderContainer(
-                                    size: size,
-                                    icon: FontAwesomeIcons.database,
-                                    color: Colors.redAccent,
-                                    title: 'MEGA',
-                                    totalFiles: 1100,
-                                    totalSpace: 25.1,
-                                  ),
-
-                                  FolderContainer(
-                                    size: size,
-                                    icon: FontAwesomeIcons.github,
-                                    color: Colors.white,
-                                    title: 'Github',
-                                    totalFiles: 300,
-                                    totalSpace: 1.2,
-                                  ),
-
-                                  FolderContainer(
-                                    size: size,
-                                    icon: Icons.cloud_rounded,
-                                    color: Colors.blue,
-                                    title: 'One Drive',
-                                    totalFiles: 2000,
-                                    totalSpace: 20,
-                                  ),
-
-                                  FolderContainer(
-                                    size: size,
-                                    icon: FontAwesomeIcons.steam,
-                                    color: const Color(0xFF45ADE8),
-                                    title: 'Steam',
-                                    totalFiles: 850,
-                                    totalSpace: 30.5,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        }
-                      ),
-                      const SizedBox(height: 12),
-
-                      Builder(
-                        builder: (context) {
-                          final scrollController = ScrollController();
-                          return RoundedContainer(
-                            width: double.maxFinite,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Arquivos recentes', style: AppTheme.themeData.textTheme.titleMedium),
-                                const SizedBox(height: 8),
-                                LimitedBox(
-                                  //todo: DEPOIS VER UMA FORMA MELHOR DE FAZER ISSO,
-                                  //todo: POIS PROPORCIONALMENTE NÃO FUNCIONOU 100%
-                                  maxHeight: AppConfig.getHeight(60),
-                                  child: SizedBox(
-                                    width: double.maxFinite,
-                                    child: Scrollbar(
-                                      thumbVisibility: true,
-                                      controller: scrollController,
-                                      child: SingleChildScrollView(
-                                        controller: scrollController,
-                                        child: DataTable(
-                                          columns: const [
-                                            DataColumn(label: Text('Nome')),
-                                            DataColumn(label: Text('Data')),
-                                            DataColumn(label: Text('Tamanho')),
-                                          ],
-                                          rows: _buildRow(),
+                                  SizedBox(
+                                    width: constraints.maxWidth*.4,
+                                    child: TextFormField(
+                                      decoration: InputDecoration(
+                                        hintText: 'Pesquisar',
+                                        suffixIcon: IconButton(
+                                          onPressed: (){},
+                                          icon: const Icon(Icons.search_rounded),
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          );
-                        }
-                      ),
 
-                      if(AppConfig.isMobile) Padding(
-                        padding: const EdgeInsets.only(top: 12),
-                        child: _buildAside(200),
-                      ),
-                    ],
+                                  RoundedContainer(
+                                    padding: const EdgeInsets.all(8),
+                                    margin: const EdgeInsets.only(left: 14),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        CircleAvatar(
+                                          backgroundColor: AppTheme.colorScheme.background,
+                                          child: Icon(FontAwesomeIcons.user, color: AppTheme.colorScheme.onBackground),
+                                        ),
+                                        const Text('   Username'),
+                                        InkWell(
+                                          onTap: (){},
+                                          child: const Icon(Icons.arrow_drop_down),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        );
+                      }
                   ),
-                ),
-              ),
-            ),
 
-            // -----------------------
-            // ASIDE
-            // -----------------------
-            if(!AppConfig.isMobile) Expanded(     // else == isTablet
-              flex: _menuRecolhido ? (AppConfig.isDesktop ? 6 : 5) : 2,
-              child: _buildAside(double.maxFinite),
+                  LimitedBox(
+                    maxHeight: AppConfig.screenHeight-80,
+                    child: SingleChildScrollView(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // -----------------------
+                          // BODY
+                          // -----------------------
+                          Expanded(                             // else == isTablet
+                            flex: 2,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text('Meus arquivos', style: AppTheme.themeData.textTheme.titleMedium),
+                                      ElevatedButton.icon(
+                                        onPressed: (){},
+                                        icon: const Icon(Icons.add_rounded),
+                                        label: const Text('Adicionar'),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 12),
+
+                                  Builder(
+                                    builder: (_) {
+                                      final size = AppConfig.isMobile ? 120.0 : 150.0;
+                                      final scrollController = ScrollController();
+                                      return Scrollbar(
+                                        controller: scrollController,
+                                        child: SingleChildScrollView(
+                                          controller: scrollController,
+                                          scrollDirection: Axis.horizontal,
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              FolderContainer(
+                                                size: size,
+                                                icon: Icons.description_rounded,
+                                                color: Colors.green,
+                                                title: 'Documentos',
+                                                totalFiles: 500,
+                                                totalSpace: 2,
+                                              ),
+                                              FolderContainer(
+                                                size: size,
+                                                icon: FontAwesomeIcons.googleDrive,
+                                                color: Colors.orange,
+                                                title: 'Google Drive',
+                                                totalFiles: 1520,
+                                                totalSpace: 10.6,
+                                              ),
+                                              FolderContainer(
+                                                size: size,
+                                                icon: FontAwesomeIcons.database,
+                                                color: Colors.redAccent,
+                                                title: 'MEGA',
+                                                totalFiles: 1100,
+                                                totalSpace: 25.1,
+                                              ),
+                                              FolderContainer(
+                                                size: size,
+                                                icon: FontAwesomeIcons.github,
+                                                color: Colors.white,
+                                                title: 'Github',
+                                                totalFiles: 300,
+                                                totalSpace: 1.2,
+                                              ),
+                                              FolderContainer(
+                                                size: size,
+                                                icon: Icons.cloud_rounded,
+                                                color: Colors.blue,
+                                                title: 'One Drive',
+                                                totalFiles: 2000,
+                                                totalSpace: 20,
+                                              ),
+                                              FolderContainer(
+                                                size: size,
+                                                icon: FontAwesomeIcons.steam,
+                                                color: const Color(0xFF45ADE8),
+                                                title: 'Steam',
+                                                totalFiles: 850,
+                                                totalSpace: 30.5,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                  ),
+                                  const SizedBox(height: 12),
+
+                                  Builder(
+                                    builder: (context) {
+                                      final scrollController = ScrollController();
+                                      return RoundedContainer(
+                                        width: double.maxFinite,
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text('Arquivos recentes', style: AppTheme.themeData.textTheme.titleMedium),
+                                            const SizedBox(height: 8),
+                                            SizedBox(
+                                              height: AppConfig.getHeight(47),
+                                              width: double.maxFinite,
+                                              child: Scrollbar(
+                                                thumbVisibility: true,
+                                                controller: scrollController,
+                                                child: SingleChildScrollView(
+                                                  controller: scrollController,
+                                                  child: DataTable(
+                                                    columns: const [
+                                                      DataColumn(label: Text('Nome')),
+                                                      DataColumn(label: Text('Data')),
+                                                      DataColumn(label: Text('Tamanho')),
+                                                    ],
+                                                    rows: _buildRow(),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    }
+                                  ),
+
+                                  if(AppConfig.isMobile) Padding(
+                                    padding: const EdgeInsets.only(top: 12),
+                                    child: _buildAside(200),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+
+                          // -----------------------
+                          // ASIDE
+                          // -----------------------
+                          if(!AppConfig.isMobile) Expanded(
+                            child: _buildAside(double.maxFinite),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           ],
         ),
@@ -354,27 +387,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        if(!AppConfig.isMobile) Container(
-          width: double.maxFinite,
-          color: AppTheme.colorScheme.secondary,
-          padding: const EdgeInsets.all(8),
-          margin: const EdgeInsets.only(bottom: 12),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CircleAvatar(
-                backgroundColor: AppTheme.colorScheme.background,
-                child: Icon(FontAwesomeIcons.user, color: AppTheme.colorScheme.onBackground),
-              ),
-              const Text('   Username'),
-              InkWell(
-                onTap: (){},
-                child: const Icon(Icons.arrow_drop_down),
-              ),
-            ],
-          ),
-        ),
-
         Container(
           width: double.maxFinite,
           // height: height,

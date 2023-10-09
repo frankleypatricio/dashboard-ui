@@ -33,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Center(
         child: RoundedContainer(
           width: 400, height: 400,
-          paddig: EdgeInsets.all(110),
+          padding: EdgeInsets.all(110),
           child: CircularProgressIndicator(),
         ),
       ),

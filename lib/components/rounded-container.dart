@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 class RoundedContainer extends StatelessWidget {
   final Widget child;
   final Color? color;
-  final EdgeInsets? paddig, margin;
+  final EdgeInsets? padding, margin;
   final double? width, height, radius;
   final BoxBorder? border;
 
   const RoundedContainer({
     required this.child,
     this.color,
-    this.paddig,
+    this.padding,
     this.margin,
     this.width,
     this.height,
@@ -24,7 +24,7 @@ class RoundedContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: margin,
-      padding: paddig ?? const EdgeInsets.all(8),
+      padding: padding ?? const EdgeInsets.all(8),
       width: width, height: height,
       decoration: BoxDecoration(
         color: color ?? AppTheme.colorScheme.secondary,
