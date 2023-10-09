@@ -16,6 +16,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool _menuRecolhido = false;
   final List<DataFile> _recentFiles = [
     DataFile('Image File', '01/10/2023', 0.6, FileType.image),
     DataFile('Video File', '02/10/2023', 50.6, FileType.video),
@@ -42,7 +43,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
       drawer: AppConfig.isMobile ? Drawer(
         backgroundColor: AppTheme.colorScheme.secondary,
-        child: _buildMenu(),
+        child: ListView(
+          children: [
+            const DrawerHeader(
+              margin: EdgeInsets.zero,
+              padding: EdgeInsets.zero,
+              child: Icon(Icons.apartment_rounded),
+            ),
+            _buildMenuItens(),
+          ],
+        ),
       ) : null,
 
       body: SafeArea(
@@ -54,15 +64,32 @@ class _HomeScreenState extends State<HomeScreen> {
             if(!AppConfig.isMobile) Expanded(
               child: ColoredBox(
                 color: AppTheme.colorScheme.secondary,
-                child: _buildMenu(),
+                child: ListView(
+                  children: [
+                    LayoutBuilder(
+                        builder: (_, constraints) {
+                          return DrawerHeader(
+                            margin: EdgeInsets.zero,
+                            padding: EdgeInsets.zero,
+                            child: IconButton(
+                              onPressed: () => setState(() => _menuRecolhido = !_menuRecolhido),
+                              icon: const Icon(Icons.apartment_rounded),
+                              // size: constraints.maxWidth*.3,
+                            ),
+                          );
+                        }
+                    ),
+                    _buildMenuItens(),
+                  ],
+                ),
               ),
             ),
 
             // -----------------------
             // BODY
             // -----------------------
-            Expanded(
-              flex: AppConfig.isTablet ? 8 : 4,
+            Expanded(                             // else == isTablet
+              flex: _menuRecolhido ? (AppConfig.isDesktop ? 10 : 9) : 4,
               child: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -141,7 +168,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     color: Colors.redAccent,
                                     title: 'MEGA',
                                     totalFiles: 1100,
-                                    totalSpace: 6,
+                                    totalSpace: 25.1,
                                   ),
 
                                   FolderContainer(
@@ -181,8 +208,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Builder(
                         builder: (context) {
                           final scrollController = ScrollController();
-                          print('AppConfig.getHeight(60): ${AppConfig.getHeight(60)}');
-                        return RoundedContainer(
+                          return RoundedContainer(
                             width: double.maxFinite,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -231,8 +257,8 @@ class _HomeScreenState extends State<HomeScreen> {
             // -----------------------
             // ASIDE
             // -----------------------
-            if(!AppConfig.isMobile) Expanded(
-              flex: AppConfig.isTablet ? 4 : 2,
+            if(!AppConfig.isMobile) Expanded(     // else == isTablet
+              flex: _menuRecolhido ? (AppConfig.isDesktop ? 6 : 5) : 2,
               child: _buildAside(double.maxFinite),
             ),
           ],
@@ -266,9 +292,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return listRow;
   }
 
-  Widget _buildMenu() {
-    final mobileDesktop = Column(
-      children: [
+  Widget _buildMenuItens() {
+    const padding = EdgeInsets.symmetric(vertical: 20);
+    return Column(
+      children: (AppConfig.isMobile || !_menuRecolhido) ? [
         ListTile(
           onTap: (){},
           leading: const Icon(Icons.home_rounded),
@@ -289,50 +316,30 @@ class _HomeScreenState extends State<HomeScreen> {
           leading: const Icon(Icons.logout_rounded),
           title: const Text('Sair'),
         ),
-      ],
-    );
-
-    return ListView(
-      children: [
-        LayoutBuilder(
-            builder: (_, constraints) {
-              return DrawerHeader(
-                margin: EdgeInsets.zero,
-                padding: EdgeInsets.zero,
-                child: Icon(
-                  Icons.apartment_rounded,
-                  size: constraints.maxWidth*.3,
-                ),
-              );
-            }
+      ] : [
+        IconButton(
+          onPressed: (){},
+          tooltip: 'Home',
+          padding: padding,
+          icon: const Icon(Icons.home_rounded),
         ),
-        ResponsiveLayout(
-          desktop: mobileDesktop,
-          mobile: mobileDesktop,
-          tablet: Column(
-            children: [
-              IconButton(
-                onPressed: (){},
-                tooltip: 'Home',
-                icon: const Icon(Icons.home_rounded),
-              ),
-              IconButton(
-                onPressed: (){},
-                tooltip: 'Gráficos',
-                icon: const Icon(Icons.auto_graph_rounded),
-              ),
-              IconButton(
-                onPressed: (){},
-                tooltip: 'Preferências',
-                icon: const Icon(Icons.settings_rounded),
-              ),
-              IconButton(
-                onPressed: (){},
-                tooltip: 'Sair',
-                icon: const Icon(Icons.logout_rounded),
-              ),
-            ],
-          ),
+        IconButton(
+          onPressed: (){},
+          tooltip: 'Gráficos',
+          padding: padding,
+          icon: const Icon(Icons.auto_graph_rounded),
+        ),
+        IconButton(
+          onPressed: (){},
+          tooltip: 'Preferências',
+          padding: padding,
+          icon: const Icon(Icons.settings_rounded),
+        ),
+        IconButton(
+          onPressed: (){},
+          tooltip: 'Sair',
+          padding: padding,
+          icon: const Icon(Icons.logout_rounded),
         ),
       ],
     );

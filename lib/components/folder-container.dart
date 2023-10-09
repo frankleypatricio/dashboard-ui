@@ -40,6 +40,7 @@ class FolderContainer extends StatelessWidget {
               ),
 
               PopupMenuButton(
+                tooltip: '',
                 color: AppTheme.colorScheme.background,
                 icon: Icon(Icons.more_vert_rounded, color: AppTheme.colorScheme.onSecondary),
                 itemBuilder: (_) {
