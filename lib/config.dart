@@ -4,6 +4,7 @@ class AppConfig {
   static double screenWidth = 0;
   static double screenHeight = 0;
   static bool fullscreen = false;
+  static bool menuRecolhido = false;
   
   static void init(BuildContext context) {
     screenWidth = MediaQuery.of(context).size.width;

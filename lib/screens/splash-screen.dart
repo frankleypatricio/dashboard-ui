@@ -1,4 +1,4 @@
-import 'package:dashboard_ui/components/rounded-container.dart';
+import 'package:dashboard_ui/components/containers/rounded-container.dart';
 import 'package:dashboard_ui/routes.dart' as routes;
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';

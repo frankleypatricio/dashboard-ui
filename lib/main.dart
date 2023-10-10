@@ -1,5 +1,5 @@
 import 'package:dashboard_ui/routes.dart' as routes;
-import 'package:dashboard_ui/screens/home-screen.dart';
+import 'package:dashboard_ui/screens/menu-screen.dart';
 import 'package:dashboard_ui/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.themeData,
       onGenerateRoute: routes.controller,
       initialRoute: routes.splash,
-      home: const HomeScreen(),
+      home: const MenuScreen(),
     );
   }
 }
